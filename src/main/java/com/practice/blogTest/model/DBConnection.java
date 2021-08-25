@@ -13,9 +13,9 @@ public class DBConnection {
     String SELECT_QUERY = "SELECT * FROM posts WHERE id = ";
     String UPDATE_QUERY = "UPDATE posts SET post = ? WHERE id = ?";
 
-    public void testConnection() throws SQLException {
+    public void testConnection() {
 
-        try(Connection connection = DriverManager.getConnection(DB_URL);) {
+        try(Connection connection = DriverManager.getConnection(DB_URL)) {
 
             if (connection.isValid(2)) {
                 System.out.println("DB is ready to go!");
@@ -28,10 +28,10 @@ public class DBConnection {
 
     }
 
-    public void insertData(String post, String authorName) throws SQLException {
+    public void insertData(String post, String authorName) {
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
 
             preparedStatement.setString(1, post);
             preparedStatement.setString(2, authorName);
@@ -44,10 +44,10 @@ public class DBConnection {
         }
     }
 
-    public void deleteData(int id) throws SQLException {
+    public void deleteData(int id) {
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY + id);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY + id)) {
             preparedStatement.executeUpdate();
 
             System.out.println("Deleted record with id of " + id);
@@ -56,10 +56,10 @@ public class DBConnection {
         }
     }
 
-    public void retrieveData(int id) throws SQLException {
+    public void retrieveData(int id) {
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + id);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY + id)) {
 
             ResultSet result = preparedStatement.executeQuery();
 
@@ -75,9 +75,9 @@ public class DBConnection {
         }
     }
 
-    public void updateData(int id, String updatedInfo) throws SQLException {
+    public void updateData(int id, String updatedInfo) {
         try(Connection connection = DriverManager.getConnection(DB_URL);
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY);) {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUERY)) {
 
             preparedStatement.setString(1, updatedInfo);
             preparedStatement.setInt(2, id);
